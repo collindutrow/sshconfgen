@@ -1,0 +1,9 @@
+[package]
+name = "sshconfgen"
+version = "0.0.1"
+edition = "2021"
+
+[dependencies]
+regex = "1.10.3"
+dirs = "5.0.1"
+chrono = "0.4.19"
