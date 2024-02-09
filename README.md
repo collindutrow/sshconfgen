@@ -1,2 +1,2 @@
 # sshconfgen
-SSH configuration generator. Generate ssh configs based on active SSID.
+Automatic SSH config file generation based on user defined criteria.
