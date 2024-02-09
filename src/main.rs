@@ -89,7 +89,7 @@ fn monitor_ssid(sleep_time: Option<u64>) -> io::Result<()> {
         let new_ssid = ssid::get_current_ssid();
         if new_ssid != current_ssid {
             current_ssid = new_ssid;
-            println!("New SSID: {}", current_ssid.clone().unwrap());
+            verbose_println!("New SSID: {}", current_ssid.clone().unwrap());
             process_config()?;
         }
     }
@@ -149,7 +149,7 @@ fn process_config() -> io::Result<()> {
                 // Create a value_array of SSIDs delimited by a comma, filter out any empty strings.
                 let value_array: Vec<&str> = value.split(',').filter(|&x| !x.is_empty()).collect();
                 if get_ssid_match(&value_array, &current_ssid) {
-                    println!("Using local ssh rules for {} reason: ssid match {}",
+                    verbose_println!("Using local ssh rules for {} reason: ssid match {}",
                              config_file_path.display(),
                              current_ssid
                     );
@@ -168,7 +168,7 @@ fn process_config() -> io::Result<()> {
                         let mac = gateway_array[1];
                         if let Ok(mac_address) = hwaddr::get_mac_address(ip) {
                             if mac_address == mac {
-                                println!("Using local ssh rules for {} reason: gateway match {} ({})",
+                                verbose_println!("Using local ssh rules for {} reason: gateway match {} ({})",
                                          config_file_path.display(),
                                          ip,
                                          mac
