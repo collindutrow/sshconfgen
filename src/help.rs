@@ -7,7 +7,9 @@ pub fn print_help() {
     println!(
 "
 -h, --help\t\tPrints this help information
--v, --version\t\tPrints version information
+-V, --version\t\tPrints version information
+    --monitor-ssid[=#]\tMonitor the SSID and regenerate the SSH config file when the SSID changes.
+              \t\tif # is specified, the SSID will be checked every # seconds, defaults to 20.
 
 This utility generates a new SSH config file by alphabetically parsing
 through .sshconf files found in $HOME/.ssh/conf.d/.

@@ -2,20 +2,27 @@ use std::process::Command;
 use std::str;
 
 pub fn get_mac_address(ip_address: &str) -> Result<String, &'static str> {
-    #[cfg(target_os = "linux")]
-        let command = "arp";
+    let command: &str;
+    let args: Vec<&str>;
 
-    #[cfg(target_os = "macos")]
-        let command = "arp";
+    #[cfg(target_os = "linux")] {
+        command = "arp";
+        args = vec!["-n", ip_address];
+    }
 
-    #[cfg(target_os = "windows")]
-        let command = "cmd";
+    #[cfg(target_os = "macos")] {
+        command = "arp";
+        args = vec!["-n", ip_address];
+    }
 
-    #[cfg(any(target_os = "linux", target_os = "macos"))]
-        let args = vec!["-n", ip_address];
+    #[cfg(target_os = "windows")] {
+        command = "cmd";
+        args = vec!["/C", &format!("arp -a {}", ip_address)];
+    }
 
-    #[cfg(target_os = "windows")]
-        let args = vec!["/C", &format!("arp -a {}", ip_address)];
+    if command.is_empty() {
+        return Err("OS not supported");
+    }
 
     let output = Command::new(command)
         .args(args)
