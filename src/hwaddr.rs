@@ -1,9 +1,17 @@
-use std::process::Command;
-use std::str;
+//! # Hardware Address
+//!
+//! This module provides a function to get the MAC address of a device given its IP address.
 
-pub fn get_mac_address(ip_address: &str) -> Result<String, &'static str> {
+use std::{
+    process::Command,
+    str
+};
+
+/// Get the hardware address of a device given its IP address
+pub fn get_hw_address(ip_address: &str) -> Result<String, &'static str> {
     let command: &str;
     let args: Vec<&str>;
+    let _formatted_arg: String;
 
     #[cfg(target_os = "linux")] {
         command = "arp";
@@ -17,7 +25,8 @@ pub fn get_mac_address(ip_address: &str) -> Result<String, &'static str> {
 
     #[cfg(target_os = "windows")] {
         command = "cmd";
-        args = vec!["/C", &format!("arp -a {}", ip_address)];
+        formatted_arg = format!("arp -a {}", ip_address);
+        args = vec!["/C", &formatted_arg];
     }
 
     if command.is_empty() {

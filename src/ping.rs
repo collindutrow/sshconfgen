@@ -1,5 +1,10 @@
+//! # Ping
+//!
+//! This module contains the function to ping a host.
+
 use std::process::Command;
 
+/// Get whether a host is pingable
 pub fn get_pingable(host: &str) -> bool {
     let mut ping_output;
 

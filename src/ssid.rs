@@ -1,6 +1,13 @@
-use std::process::Command;
-use std::str;
+//! # SSID
+//!
+//! This module contains the function to get the currently connected SSID of the machine.
 
+use std::{
+    process::Command,
+    str
+};
+
+/// Get the currently connected SSID
 pub fn get_current_ssid() -> Result<String, &'static str> {
     if cfg!(target_os = "windows")
     {

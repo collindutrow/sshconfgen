@@ -1,3 +1,8 @@
+//! # Help
+//!
+//! This module contains the help and usage information for the binary.
+
+/// Print the help and usage information
 pub fn print_help() {
     // Get the name of the binary.
     let binding = std::env::current_exe().unwrap();
@@ -16,20 +21,23 @@ through .sshconf files found in $HOME/.ssh/conf.d/.
 
 The generated file is structured into sections, formatted as follows:
 ------------------------------------------------
-# CONFIG BEGIN
+# CONDITIONS BEGIN
 LocalSSID foo, bar5ghz
 LocalGateway 192.168.1.1|00:11:22:33:44:55,172.16.1.1|00:55:44:33:22:11
 LocalPing 192.168.1.100,172.16.1.100
-# CONFIG END
-# GLOBAL RULES BEGIN
+# CONDITIONS END
+
+# GLOBAL CONFIG BEGIN
 <global ssh config>
-# GLOBAL RULES END
-# LOCAL RULES BEGIN
+# GLOBAL CONFIG END
+
+# LOCAL CONFIG BEGIN
 <local ssh config>
-# LOCAL RULES END
-# REMOTE RULES BEGIN
+# LOCAL CONFIG END
+
+# REMOTE CONFIG BEGIN
 <remote ssh config>
-# REMOTE RULES END
+# REMOTE CONFIG END
 ------------------------------------------------
 Ensure that the .sshconf files within $HOME/.ssh/conf.d/ are properly formatted to be parsed and
 included in the respective sections.
