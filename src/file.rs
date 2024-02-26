@@ -6,6 +6,7 @@ use regex::Regex;
 use std::fs::read_dir;
 use std::{fs::File, io, io::Read, io::Write, path::PathBuf};
 use std::path::Path;
+use crate::{is_verbose, verbose_println};
 
 /// Append a borrowed string slice to a file
 pub fn append_to_file(path: &PathBuf, contents: &str, append_newline: bool) -> io::Result<()> {
@@ -23,6 +24,7 @@ pub fn append_to_file(path: &PathBuf, contents: &str, append_newline: bool) -> i
     if append_newline {
         let newline = if cfg!(windows) { "\r\n" } else { "\n" };
         if !contents.ends_with(newline) {
+            verbose_println!("Appending newline to {}", path.display());
             contents.to_string().push_str(newline);
         }
     }

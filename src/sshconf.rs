@@ -98,11 +98,18 @@ fn parse_and_process(ssh_config_dir: &PathBuf, ssh_config_file: &PathBuf, sshd_c
         } else if !remote_rules.is_empty() {
             verbose_println!("Using remote ssh rules from {}", config_file_path.display());
             new_ssh_config.push_str(&remote_rules);
+            new_ssh_config.push_str(newline);
+        }
+        
+        // We want each config file to be separated by an empty line.
+        if !new_ssh_config.is_empty() {
+            new_ssh_config.push_str(newline);
         }
     }
 
     if !new_ssh_config.is_empty() {
         backup_config(&ssh_config_file, &sshd_config_backup_file);
+        verbose_println!("Populating {}", ssh_config_file.display());
         crate::file::append_to_file(&ssh_config_file, &new_ssh_config, true)
             .expect("Error, unable to append newline to .ssh/config");
     }
